@@ -43,7 +43,7 @@ filterEdges :: Ord node
             -> LGraph node edge
 filterEdges keep_edge = M.map (M.mapMaybeWithKey (\n e -> if keep_edge e n then Just e else Nothing))
 
-trimUnreachable :: Ord node
+trimUnreachable :: (Show node, Ord node)
                 => node
                 -> LGraph node edge
                 -> LGraph node edge
@@ -51,7 +51,7 @@ trimUnreachable root_n g = go (S.singleton root_n) S.empty
   where go n_todo n_done | S.null n_todo' = M.filterWithKey (\n _ -> n `S.member` n_done') g -- NB: all outgoing edges of retained nodes will still be present by definition
                          | otherwise      = go n_todo' n_done'
           where n_done' = n_todo `S.union` n_done
-                n_todo' = S.fold (\n n_todo' -> M.keysSet (M.findWithDefault (error "trimUnreachable") n g) `S.union` n_todo') S.empty n_todo S.\\ n_done'
+                n_todo' = S.fold (\n n_todo' -> M.keysSet (M.findWithDefault (error $ "trimUnreachable:" ++ show n) n g) `S.union` n_todo') S.empty n_todo S.\\ n_done'
 
 shortcutEdges :: forall node edge.
                  Ord node
@@ -207,6 +207,9 @@ data Context = HeapContext Var
              | StackContext Int
              | FocusContext
              deriving (Eq, Ord)
+
+instance Show Context where
+    show = showPpr
 
 instance Outputable Context where
     pprPrec prec (HeapContext x') = pprPrec prec x'
