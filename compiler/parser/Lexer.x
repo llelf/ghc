@@ -344,9 +344,9 @@ $tab+         { warn Opt_WarnTabs (text "Tab character") }
 }
 
 <0> {
-  "(|" / { ifExtension arrowsEnabled `alexAndPred` notFollowedBySymbol }
+  "((|" / { ifExtension arrowsEnabled `alexAndPred` notFollowedBySymbol }
                                         { special IToparenbar }
-  "|)" / { ifExtension arrowsEnabled }  { special ITcparenbar }
+  "|))" / { ifExtension arrowsEnabled }  { special ITcparenbar }
 }
 
 <0> {
