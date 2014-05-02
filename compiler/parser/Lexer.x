@@ -344,9 +344,9 @@ $tab+         { warn Opt_WarnTabs (text "Tab character") }
 }
 
 <0> {
-  "((|" / { ifExtension arrowsEnabled `alexAndPred` notFollowedBySymbol }
-                                        { special IToparenbar }
-  "|))" / { ifExtension arrowsEnabled }  { special ITcparenbar }
+  "(||" / { ifExtension arrowsEnabled `alexAndPred` notFollowedBySymbol }
+                                         { special IToparenbarbar }
+  "||)" / { ifExtension arrowsEnabled }  { special ITcparenbarbar }
 }
 
 <0> {
@@ -606,8 +606,8 @@ data Token
   -- Arrow notation extension
   | ITproc
   | ITrec
-  | IToparenbar                 --  (|
-  | ITcparenbar                 --  |)
+  | IToparenbarbar              --  (||
+  | ITcparenbarbar              --  ||)
   | ITlarrowtail                --  -<
   | ITrarrowtail                --  >-
   | ITLarrowtail                --  -<<

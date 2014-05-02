@@ -305,8 +305,8 @@ incorrect.
  ')'            { L _ ITcparen }
  '(#'           { L _ IToubxparen }
  '#)'           { L _ ITcubxparen }
- '(|'           { L _ IToparenbar }
- '|)'           { L _ ITcparenbar }
+ '(||'          { L _ IToparenbarbar }
+ '||)'          { L _ ITcparenbarbar }
  ';'            { L _ ITsemi }
  ','            { L _ ITcomma }
  '`'            { L _ ITbackquote }
@@ -1587,7 +1587,7 @@ aexp2   :: { LHsExpr RdrName }
         | quasiquote            { L1 (HsQuasiQuoteE (unLoc $1)) }
 
         -- arrow notation extension
-        | '(|' aexp2 cmdargs '|)'       { LL $ HsArrForm $2 Nothing (reverse $3) }
+        | '(||' aexp2 cmdargs '||)'     { LL $ HsArrForm $2 Nothing (reverse $3) }
 
 splice_exp :: { LHsExpr RdrName }
         : TH_ID_SPLICE          { L1 $ mkHsSpliceE 
